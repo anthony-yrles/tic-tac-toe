@@ -1,6 +1,7 @@
 import pygame as Py
 
 screen = Py.display.set_mode((1000, 600))
+largeur, hauteur = 450, 450
 
 image_bcg = Py.image.load('./assets/images/bcg_image.jpg').convert_alpha()
 image_select = Py.image.load('./assets/images/select.jpg').convert_alpha()
@@ -13,3 +14,12 @@ image_versus = Py.image.load('./assets/images/versus.png').convert_alpha()
 image_versus_pos = (50,270)
 image_fight = Py.image.load('./assets/images/fight.png').convert_alpha()
 image_fight_pos = (580,10)
+rect_grid1 = Py.Rect(470, 150, 150, 150)
+rect_grid2 = Py.Rect(620, 150, 150, 150)
+rect_grid3 = Py.Rect(770, 150, 150, 150)
+rect_grid4 = Py.Rect(470, 300, 150, 150)
+rect_grid5 = Py.Rect(620, 300, 150, 150)
+rect_grid6 = Py.Rect(770, 300, 150, 150)
+rect_grid7 = Py.Rect(470, 450, 150, 150)
+rect_grid8 = Py.Rect(620, 450, 150, 150)
+rect_grid9 = Py.Rect(770, 450, 150, 150)

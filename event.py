@@ -1,6 +1,7 @@
 from globals import *
 from tkinter.messagebox import askyesno
 from tkinter import messagebox as mb
+import time
 
 def gris_ou_roux(event, chat_gris, chat_roux):
     if image_gris_pos[0] <= event.pos[0] <= image_gris_pos[0] + image_gris.get_width() and \
@@ -25,14 +26,20 @@ def roux_ou_gris(event, chat_gris, chat_roux):
                 chat_roux = True
     return chat_roux
         
-def fight(event, chat_gris, chat_roux):
+def fight(event, chat_gris, chat_roux, fight_on):
     if image_fight_pos[0] <= event.pos[0] <= image_fight_pos[0] + image_fight.get_width() and \
         image_fight_pos[1] <= event.pos[1] <= image_fight_pos[1] + image_fight.get_height():
-        print("clic")
-        print(chat_gris, chat_roux)
         if chat_gris == False and chat_roux == False:
             mb.showerror("Erreur", "Veuillez sélectionner un combattant avec de lancer le fight!!!")
         elif chat_gris == True:
             mb.askquestion("Fight", "Préparez-vous au combat Mistrigri!!!")
         elif chat_roux == True:
             mb.askquestion("Fight", "Préparez-vous au combat Roucky!!!")
+
+def mouse_pos():
+    mouseX, mouseY = Py.mouse.get_pos()
+    if mouseX >= 520 and mouseX <= 880 and mouseY >= 220 and mouseY <= 700:
+        row = (mouseY - 220) // 120
+        col = (mouseX - 520) // 120
+        return row, col
+        
