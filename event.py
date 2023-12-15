@@ -26,15 +26,19 @@ def roux_ou_gris(event, chat_gris, chat_roux):
                 chat_roux = True
     return chat_roux
         
-def fight(event, chat_gris, chat_roux, fight_on):
-    if image_fight_pos[0] <= event.pos[0] <= image_fight_pos[0] + image_fight.get_width() and \
-        image_fight_pos[1] <= event.pos[1] <= image_fight_pos[1] + image_fight.get_height():
-        if chat_gris == False and chat_roux == False:
-            mb.showerror("Erreur", "Veuillez sélectionner un combattant avec de lancer le fight!!!")
-        elif chat_gris == True:
-            mb.askquestion("Fight", "Préparez-vous au combat Mistrigri!!!")
-        elif chat_roux == True:
-            mb.askquestion("Fight", "Préparez-vous au combat Roucky!!!")
+# def fight(event, chat_gris, chat_roux, fight_on):
+#     if image_fight_pos[0] <= event.pos[0] <= image_fight_pos[0] + image_fight.get_width() and \
+#         image_fight_pos[1] <= event.pos[1] <= image_fight_pos[1] + image_fight.get_height():
+#         if chat_gris == False and chat_roux == False:
+#             mb.showerror("Erreur", "Veuillez sélectionner un combattant avec de lancer le fight!!!")
+#         elif chat_gris == True:
+#             mb.askquestion("Fight", "Préparez-vous au combat Mistrigri!!!")
+#             fight_on = True
+#             return fight_on
+#         elif chat_roux == True:
+#             mb.askquestion("Fight", "Préparez-vous au combat Roucky!!!")
+#             fight_on = True
+#             return fight_on
 
 def mouse_pos():
     mouseX, mouseY = Py.mouse.get_pos()
