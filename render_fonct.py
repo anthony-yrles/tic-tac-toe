@@ -9,7 +9,7 @@ from grid_creation import grid_creation
 #     if fight_on == True:
 #         grid_creation()
 
-def draw_on_grid(symbole, position, chat_gris, chat_roux, fight_on):
+def draw_on_grid(symbole, position):
     row, col = position
     cell_x = 520 + col * 120
     cell_y = 220 + row * 120

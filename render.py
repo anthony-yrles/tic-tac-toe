@@ -12,4 +12,4 @@ def render(chat_gris, chat_roux, fight_on, symbole, position):
     # fight_render(chat_gris, chat_roux)
     grid_creation()
     if position is not None:
-        draw_on_grid(symbole, position, chat_gris, chat_roux, fight_on)
+        draw_on_grid(symbole, position)
