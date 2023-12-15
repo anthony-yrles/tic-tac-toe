@@ -15,5 +15,9 @@ def draw_on_grid(symbole, position):
     cell_y = 220 + row * 120
     if symbole == 'X':
         screen.blit(image_pate_gris, (cell_x, cell_y))
+        
+        # Py.display.update
+        
     if symbole == 'O':
         screen.blit(image_pate_roux, (cell_x, cell_y))
+        # Py.display.update

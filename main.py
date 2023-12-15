@@ -8,7 +8,7 @@ from event import *
 from resolution import *
 
 Py.init()
-
+toto = True
 continuer = True
 chat_gris = False
 chat_roux = False
@@ -30,8 +30,9 @@ while continuer:
             symbole = verification_case(position, grid, chat_gris, chat_roux)
             if symbole:  # Vérifie si la case a été mise à jour
                 chat_gris, chat_roux = chat_roux, chat_gris
-
+                
     render(chat_gris, chat_roux, fight_on, symbole, position)
+    # Py.display.update()
     Py.display.flip()
 
 
