@@ -1,4 +1,6 @@
 from globals import *
+from tkinter import messagebox as mb
+import time
 
 def verification_case(position, grid, chat_gris, chat_roux):
     if position is not None:
@@ -13,11 +15,25 @@ def verification_case(position, grid, chat_gris, chat_roux):
     return None
 
 
-# def draw_on_grid(symbole, col, row):
-#     cell_x = 520 + col * 120
-#     cell_y = 220 + row * 120
-#     if symbole == 'X':
-#         screen.blit(image_pate_gris, (cell_x, cell_y))
-#     if symbole == 'O':
-#         screen.blit(image_pate_roux, (cell_x, cell_y))
+def est_victoire(grid, symbole):
+    if symbole != ' ':
+        for i in range(3):
+                if all(grid[i][j] == symbole for j in range(3)) or all(grid[j][i] == symbole for j in range(3)):
+                    return True
+        if all(grid[i][i] == symbole for i in range(3)) or all(grid[i][2 - i] == symbole for i in range(3)):
+            return True
+    return False
+
+def victory(chat_gris, chat_roux):
+    if chat_gris:
+        message = "Bravo ! Le joueur Roucky a gagné !"
+        time.sleep(0.5)
+        mb.showinfo("Partie terminée", message)
+        
+    elif chat_roux:
+        message = "Bravo ! Le joueur Mistigry a gagné !"
+        time.sleep(0.5)
+        mb.showinfo("Partie terminée", message)
+
+
 

@@ -1,6 +1,7 @@
 import pygame as Py
 
 screen = Py.display.set_mode((1000, 600))
+render1 = True
 
 image_bcg = Py.image.load('./assets/images/bcg_image.jpg').convert_alpha()
 image_select = Py.image.load('./assets/images/select.jpg').convert_alpha()
