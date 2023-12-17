@@ -12,8 +12,6 @@ def verification_case(position, grid, chat_gris, chat_roux):
             elif chat_roux:
                 grid[row][col] = 'O'
                 return 'O'
-    return None
-
 
 def est_victoire(grid, symbole):
     if symbole != ' ':
@@ -26,12 +24,12 @@ def est_victoire(grid, symbole):
 
 def victory(chat_gris, chat_roux):
     if chat_gris:
-        message = "Bravo ! Le joueur Roucky a gagné !"
+        message = "Bravo ! Le joueur Mistigry a gagné !"
         time.sleep(0.5)
         mb.showinfo("Partie terminée", message)
         
     elif chat_roux:
-        message = "Bravo ! Le joueur Mistigry a gagné !"
+        message = "Bravo ! Le joueur Roucky a gagné !"
         time.sleep(0.5)
         mb.showinfo("Partie terminée", message)
 
