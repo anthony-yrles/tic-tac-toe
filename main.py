@@ -5,6 +5,8 @@ from draw_grid import *
 from draw_image import *
 from draw_render import *
 from who_win import *
+from medium import *
+from hard import *
 
 pygame.init()
 
@@ -21,8 +23,11 @@ image_vs_cpu_pos = (80,350)
 image_opponent = pygame.image.load('./assets/images/opponent.png').convert_alpha()
 image_difficulty = pygame.image.load('./assets/images/select_difficulty.png').convert_alpha()
 image_easy = pygame.image.load('./assets/images/easy_bis.png').convert_alpha()
+image_easy_pos = (10, 500)
 image_medium = pygame.image.load('./assets/images/medium_bis.png').convert_alpha()
+image_medium_pos = (140, 500)
 image_hard = pygame.image.load('./assets/images/hard_bis.jpg').convert_alpha()
+image_hard_pos = (270, 500)
 font = pygame.font.SysFont(None, 40)
 play_again_rect = pygame.Rect(530, 150, 345, 40)
 
@@ -33,6 +38,9 @@ player = 1
 winner = 0
 human = False
 computer = False
+easy = False
+medium = False
+hard = False
 game_over = False
 
 for x in range(3):
@@ -58,9 +66,6 @@ while continuer:
                 if image_vs_player_pos[0] <= event.pos[0] <= image_vs_player_pos[0] + image_vs_player.get_width() and \
         image_vs_player_pos[1] <= event.pos[1] <= image_vs_player_pos[1] + image_vs_player.get_height() and computer == False:
                     human = True
-                if image_vs_cpu_pos[0] <= event.pos[0] <= image_vs_cpu_pos[0] + image_vs_cpu.get_width() and \
-        image_vs_cpu_pos[1] <= event.pos[1] <= image_vs_cpu_pos[1] + image_vs_cpu.get_height() and human == False:
-                    computer = True
                 if human:
                     if x >= 520 and x <= 880 and y >= 220 and y <= 700:
                         if cubes[(x - 520) // 120][(y - 220) // 120] == 0:
@@ -68,6 +73,18 @@ while continuer:
                             player *= -1
                             end_game = who_win(cubes, winner, game_over)
                             winner, game_over = end_game
+                if image_vs_cpu_pos[0] <= event.pos[0] <= image_vs_cpu_pos[0] + image_vs_cpu.get_width() and \
+        image_vs_cpu_pos[1] <= event.pos[1] <= image_vs_cpu_pos[1] + image_vs_cpu.get_height() and human == False:
+                    computer = True
+                if image_easy_pos[0] <= event.pos[0] <= image_easy_pos[0] + image_easy.get_width() and \
+        image_easy_pos[1] <= event.pos[1] <= image_easy_pos[1] + image_easy.get_height() and human == False and medium == False and hard == False:
+                    easy = True
+                if image_medium_pos[0] <= event.pos[0] <= image_medium_pos[0] + image_medium.get_width() and \
+        image_medium_pos[1] <= event.pos[1] <= image_medium_pos[1] + image_medium.get_height() and human == False and easy == False and hard == False:
+                    medium = True
+                if image_hard_pos[0] <= event.pos[0] <= image_hard_pos[0] + image_hard.get_width() and \
+        image_hard_pos[1] <= event.pos[1] <= image_hard_pos[1] + image_hard.get_height() and human == False and easy == False and medium == False:
+                    medium = True
                 if computer and player == 1:
                     if x >= 520 and x <= 880 and y >= 220 and y <= 700:
                         if cubes[(x - 520) // 120][(y - 220) // 120] == 0:
@@ -75,7 +92,7 @@ while continuer:
                             player *= -1
                             end_game = who_win(cubes, winner, game_over)
                             winner, game_over = end_game
-    if computer and player == -1:
+    if computer and easy and player == -1:
         empty_cells = [(i, j) for i in range(3) for j in range(3) if cubes[i][j] == 0]
         if empty_cells:
             computer_move = random.choice(empty_cells)
@@ -83,6 +100,43 @@ while continuer:
             player *= -1
             end_game = who_win(cubes, winner, game_over)
             winner, game_over = end_game
+
+    if computer and medium and player == -1:
+        empty_cells = get_empty_cells(cubes)
+        for move in empty_cells:
+            if is_winner_move(cubes, move, player):
+                cubes[move[0]][move[1]] = player
+                player *= -1
+                end_game = who_win(cubes, winner, game_over)
+                winner, game_over = end_game
+                break
+        else:
+            computer_move = random.choice(empty_cells)
+            cubes[computer_move[0]][computer_move[1]] = player
+            player *= -1
+            end_game = who_win(cubes, winner, game_over)
+            winner, game_over = end_game
+
+    if computer and hard and player == -1:
+        empty_cells = get_empty_cells(cubes)
+
+        best_move = None
+        best_eval = float('-inf')
+
+        for move in empty_cells:
+            temp_board = [row.copy() for row in cubes]
+            temp_board[move[0]][move[1]] = player
+
+            eval = minimax(temp_board, 2, False)
+
+            if eval > best_eval:
+                best_eval = eval
+                best_move = move
+
+        cubes[best_move[0]][best_move[1]] = player
+        player *= -1
+        end_game = who_win(cubes, winner, game_over)
+        winner, game_over = end_game
 
 
     if game_over == True:
@@ -93,8 +147,8 @@ while continuer:
             clicked = False
             pos = pygame.mouse.get_pos()
             if play_again_rect .collidepoint(pos):
-                reset_game = reset(cubes, pos, player, winner, human, computer, game_over)
-                cubes, pos, player, winner, human, computer, game_over = reset_game
+                reset_game = reset(cubes, pos, player, winner, human, computer, game_over, easy, medium, hard)
+                cubes, pos, player, winner, human, computer, game_over, easy, medium, hard = reset_game
                 for x in range(3):
                     row = [0] * 3
                     cubes.append(row)

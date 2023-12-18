@@ -16,10 +16,10 @@ def who_win(cubes, winner, game_over):
             winner = 2
             game_over = True
         y_pos += 1
-    if cubes[0][0] and cubes[1][1] and cubes[2][2] == 3 or cubes[0][2] and cubes[1][1] and cubes[2][0] == 3:
+    if cubes[0][0] + cubes[1][1] + cubes[2][2] == 3 or cubes[0][2] + cubes[1][1] + cubes[2][0] == 3:
             winner = 1
             game_over = True
-    if cubes[0][0] and cubes[1][1] and cubes[2][2] == 3 or cubes[0][2] and cubes[1][1] and cubes[2][0] == -3:
+    if cubes[0][0] + cubes[1][1] + cubes[2][2] == 3 or cubes[0][2] + cubes[1][1] + cubes[2][0] == -3:
             winner = 2
             game_over = True
     return winner, game_over
@@ -35,7 +35,7 @@ def draw_winner(winner, font, screen, play_again_rect):
      again_image = font.render(again_text, True, 'red')
      screen.blit(again_image, (540, 160))
 
-def reset(cubes, pos, player, winner, human, computer, game_over):
+def reset(cubes, pos, player, winner, human, computer, game_over, easy, medium, hard):
     cubes = []
     pos = []
     player = 1
@@ -43,4 +43,7 @@ def reset(cubes, pos, player, winner, human, computer, game_over):
     human = False
     computer = False
     game_over = False
-    return cubes, pos, player, winner, human, computer, game_over
+    easy = False
+    medium = False
+    hard = False
+    return cubes, pos, player, winner, human, computer, game_over, easy, medium, hard
