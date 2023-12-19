@@ -48,6 +48,10 @@ medium = False
 hard = False
 game_over = False
 input_in = False
+enter = False
+victories = 0
+draws = 0
+defeats = 0
 
 for x in range(3):
     row = [0] * 3
@@ -55,7 +59,7 @@ for x in range(3):
 
 continuer = True
 while continuer:
-    draw_render(screen, image_bcg, image_fight, image_vs_player, image_vs_cpu, image_opponent, image_difficulty, image_easy, image_medium, image_hard, image_player, font, user_text, input_in)
+    draw_render(screen, image_bcg, image_fight, image_vs_player, image_vs_cpu, image_opponent, image_difficulty, image_easy, image_medium, image_hard, image_player, font, user_text, input_in, enter, victories, draws, defeats)
     draw_image(cubes, screen, image_pate_gris, image_pate_roux)
     draw_grid(screen)
     for event in pygame.event.get():
@@ -77,8 +81,8 @@ while continuer:
                         if cubes[(x - 520) // 120][(y - 220) // 120] == 0:
                             cubes[(x - 520) // 120][(y - 220) // 120] = player
                             player *= -1
-                            end_game = who_win(cubes, winner, game_over)
-                            winner, game_over = end_game
+                            end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
+                            winner, game_over, victories, defeats = end_game
                 if image_vs_cpu_pos[0] <= event.pos[0] <= image_vs_cpu_pos[0] + image_vs_cpu.get_width() and \
         image_vs_cpu_pos[1] <= event.pos[1] <= image_vs_cpu_pos[1] + image_vs_cpu.get_height() and human == False:
                     computer = True
@@ -96,16 +100,17 @@ while continuer:
                         if cubes[(x - 520) // 120][(y - 220) // 120] == 0:
                             cubes[(x - 520) // 120][(y - 220) // 120] = player
                             player *= -1
-                            end_game = who_win(cubes, winner, game_over)
-                            winner, game_over = end_game
+                            end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
+                            winner, game_over, victories, defeats = end_game
                 input_in = input_player(image_player, image_player_pos, event, input_in)
             if event.type == pygame.KEYDOWN:
                 if len(user_text) < 12:
                     if event.key == pygame.K_BACKSPACE:
                         user_text = user_text[:-1]
                     elif event.key == pygame.K_RETURN:
-                        save_user(user_text)
-                        user_text = ""
+                        save_user(user_text, victories, draws, defeats)
+                        input_in = False
+                        enter = True
                     else:
                         user_text += event.unicode
     if computer and easy and player == -1:
@@ -114,24 +119,24 @@ while continuer:
             computer_move = random.choice(empty_cells)
             cubes[computer_move[0]][computer_move[1]] = player
             player *= -1
-            end_game = who_win(cubes, winner, game_over)
-            winner, game_over = end_game
+            end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
+            winner, game_over, victories, defeats = end_game
 
     if computer and medium and player == -1:
         empty_cells = get_empty_cells(cubes)
         for move in empty_cells:
-            if is_winner_move(cubes, move, player):
+            if is_winner_move(cubes, move, player, victories, draws, defeats):
                 cubes[move[0]][move[1]] = player
                 player *= -1
-                end_game = who_win(cubes, winner, game_over)
-                winner, game_over = end_game
+                end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
+                winner, game_over, victories, defeats = end_game
                 break
         else:
             computer_move = random.choice(empty_cells)
             cubes[computer_move[0]][computer_move[1]] = player
             player *= -1
-            end_game = who_win(cubes, winner, game_over)
-            winner, game_over = end_game
+            end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
+            winner, game_over, victories, defeats = end_game
 
     if computer and hard and player == -1:
         empty_cells = get_empty_cells(cubes)
@@ -143,7 +148,7 @@ while continuer:
             temp_board = [row.copy() for row in cubes]
             temp_board[move[0]][move[1]] = player
 
-            eval = minimax(temp_board, 2, False)
+            eval = minimax(temp_board, 2, False, victories, draws, defeats)
 
             if eval > best_eval:
                 best_eval = eval
@@ -151,8 +156,8 @@ while continuer:
 
         cubes[best_move[0]][best_move[1]] = player
         player *= -1
-        end_game = who_win(cubes, winner, game_over)
-        winner, game_over = end_game
+        end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
+        winner, game_over, victories, defeats = end_game
 
 
     if game_over == True:

@@ -1,28 +1,34 @@
 import pygame
 
-def who_win(cubes, winner, game_over):
+def who_win(cubes, winner, game_over, victories, draws, defeats):
     y_pos = 0
     for x in cubes:
         if sum(x) == 3:
             winner = 1
             game_over = True
+            victories += 1
         if sum(x) == -3:
             winner = 2
             game_over = True
+            defeats += 1
         if cubes[0][y_pos] + cubes[1][y_pos] + cubes[2][y_pos] == 3:
             winner = 1
             game_over = True
+            victories += 1
         if cubes[0][y_pos] + cubes[1][y_pos] + cubes[2][y_pos] == -3:
             winner = 2
             game_over = True
+            defeats += 1
         y_pos += 1
     if cubes[0][0] + cubes[1][1] + cubes[2][2] == 3 or cubes[0][2] + cubes[1][1] + cubes[2][0] == 3:
             winner = 1
             game_over = True
+            victories += 1
     if cubes[0][0] + cubes[1][1] + cubes[2][2] == 3 or cubes[0][2] + cubes[1][1] + cubes[2][0] == -3:
             winner = 2
             game_over = True
-    return winner, game_over
+            defeats += 1
+    return winner, game_over, victories, defeats
 
 def draw_winner(winner, font, screen, play_again_rect):
      win_text = 'Félicitation joueur ' + str(winner) + ' belle victoire!'

@@ -1,8 +1,8 @@
 from who_win import *
 from medium import get_empty_cells
 
-def minimax(board, depth, maximizing_player):
-    winner, game_over = who_win(board, 0, False)
+def minimax(board, depth, maximizing_player, victories, draws, defeats):
+    winner, game_over, victories, defeats = who_win(board, 0, False, victories, draws, defeats)
 
     if game_over or depth == 0:
         return 0 if winner == 0 else (10 if winner == 1 else -10)
@@ -14,7 +14,7 @@ def minimax(board, depth, maximizing_player):
         for move in empty_cells:
             temp_board = [row.copy() for row in board]
             temp_board[move[0]][move[1]] = -1
-            eval = minimax(temp_board, depth - 1, False)
+            eval = minimax(temp_board, depth - 1, False, victories, draws, defeats)
             max_eval = max(max_eval, eval)
         return max_eval
     else:
@@ -22,6 +22,6 @@ def minimax(board, depth, maximizing_player):
         for move in empty_cells:
             temp_board = [row.copy() for row in board]
             temp_board[move[0]][move[1]] = 1
-            eval = minimax(temp_board, depth - 1, True)
+            eval = minimax(temp_board, depth - 1, True, victories, draws, defeats)
             min_eval = min(min_eval, eval)
         return min_eval
