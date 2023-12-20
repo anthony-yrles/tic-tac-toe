@@ -21,3 +21,20 @@ def draw_render(screen, image_bcg, image_fight, image_vs_player, image_vs_cpu, i
         screen.blit(text_surface, (555, 10))
         records_surface = font.render(f'Victoire: {victories} / Nul: {draws} / Défaites: {defeats}', True, 'black')
         screen.blit(records_surface, (500, 50))
+
+def draw_grid(screen):
+    for x in range(0,4):
+        pygame.draw.line(screen, "white", (520 + x * 120, 220), (520 + x * 120, 220 + 120 * 3), 3)
+        pygame.draw.line(screen, "white", (520, 220 + x * 120), (520 + 120 * 3, 220 + x * 120), 3)
+
+def draw_image(cubes, screen, image_pate_gris, image_pate_roux):
+    x_pos = 0
+    for x in cubes:
+        y_pos = 0
+        for y in x:
+            if y == 1:
+                screen.blit(image_pate_gris, (520 + x_pos * 120, 220 + y_pos * 120))
+            if y == -1:
+                screen.blit(image_pate_roux, (520 + x_pos * 120, 220 + y_pos * 120))
+            y_pos +=1
+        x_pos +=1
