@@ -91,6 +91,9 @@ while continuer:
                         if cubes[(x - 520) // 120][(y - 220) // 120] == 0:
                             cubes[(x - 520) // 120][(y - 220) // 120] = player
                             player *= -1
+                            end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
+                            winner, game_over, victories, defeats = end_game
+                            save_user(user_text, victories, draws, defeats)
             if event.type == pygame.KEYDOWN:
                 if len(user_text) < 12:
                     if event.key == pygame.K_BACKSPACE:
