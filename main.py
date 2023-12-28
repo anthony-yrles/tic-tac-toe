@@ -82,10 +82,10 @@ while continuer:
                     if x >= 520 and x <= 880 and y >= 220 and y <= 700:
                         if cubes[(x - 520) // 120][(y - 220) // 120] == 0:
                             cubes[(x - 520) // 120][(y - 220) // 120] = player
-                            player *= -1
                             end_game = who_win(cubes, winner, game_over, victories, draws, defeats)
                             winner, game_over, victories, defeats = end_game
                             save_user(user_text, victories, draws, defeats)
+                            player *= -1
                 if computer and player == 1:
                     if x >= 520 and x <= 880 and y >= 220 and y <= 700:
                         if cubes[(x - 520) // 120][(y - 220) // 120] == 0:
@@ -163,8 +163,8 @@ while continuer:
             clicked = False
             pos = pygame.mouse.get_pos()
         if play_again_rect.collidepoint(pos):
-            reset_game = reset(cubes, pos, player, winner, human, computer, game_over, easy, medium, hard)
-            cubes, pos, player, winner, human, computer, game_over, easy, medium, hard = reset_game
+            reset_game = reset(cubes, pos, player, winner, human, computer, game_over, easy, medium, hard, victories, draws, defeats)
+            cubes, pos, player, winner, human, computer, game_over, easy, medium, hard, victories, draws, defeats = reset_game
             for x in range(3):
                 row = [0] * 3
                 cubes.append(row)
