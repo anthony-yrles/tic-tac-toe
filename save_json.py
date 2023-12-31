@@ -1,4 +1,5 @@
 import json
+import pygame
 
 def save_user(user_text, victories, draws, defeats):
     try:

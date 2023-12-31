@@ -1,12 +1,5 @@
 import pygame
 
-# def clicked_check(event, clicked):
-#     if event.type == pygame.MOUSEBUTTONDOWN and clicked == False:
-#         clicked = True
-#     if event.type == pygame.MOUSEBUTTONUP and clicked == True:
-#         clicked = False
-#         return clicked
-
 def colliding(vs_player_rect, vs_cpu_rect, vs_easy_rect, vs_medium_rect, vs_hard_rect, player_rect, pos, human, computer, easy, medium, hard, input_in):
     if vs_player_rect.collidepoint(pos) and computer == False:
         human = True

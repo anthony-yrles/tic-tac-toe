@@ -19,8 +19,8 @@ def draw_render(screen, image_bcg, image_fight, image_vs_player, image_vs_cpu, i
     else:
         text_surface = font.render(f'Bienvenue {user_text}', True, 'black')
         screen.blit(text_surface, (555, 10))
-        records_surface = font.render(f'Victoire: {victories} / Nul: {draws} / Défaites: {defeats}', True, 'black')
-        screen.blit(records_surface, (500, 50))
+        # records_surface = font.render(f'Victoire: {victories} / Nul: {draws} / Défaites: {defeats}', True, 'black')
+        # screen.blit(records_surface, (500, 50))
 
 def draw_grid(screen):
     for x in range(0,4):

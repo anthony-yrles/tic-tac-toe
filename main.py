@@ -104,7 +104,7 @@ while continuer:
                         enter = True
                     else:
                         user_text += event.unicode
-    if computer and easy and player == -1:
+    if computer and easy and player == -1 and not game_over:
         empty_cells = get_empty_cells(cubes)
         if empty_cells:
             computer_move = random.choice(empty_cells)
@@ -114,7 +114,7 @@ while continuer:
             winner, game_over, victories, defeats = end_game
             save_user(user_text, victories, draws, defeats)
 
-    if computer and medium and player == -1:
+    if computer and medium and player == -1 and not game_over:
         empty_cells = get_empty_cells(cubes)
         for move in empty_cells:
             if is_winner_move(cubes, move, player, victories, draws, defeats):
@@ -132,7 +132,7 @@ while continuer:
             winner, game_over, victories, defeats = end_game
             save_user(user_text, victories, draws, defeats)
 
-    if computer and hard and player == -1:
+    if computer and hard and player == -1 and not game_over:
         empty_cells = get_empty_cells(cubes)
 
         best_move = None

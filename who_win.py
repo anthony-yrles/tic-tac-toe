@@ -58,6 +58,7 @@ def draw_winner(winner, font, screen, play_again_rect):
     screen.blit(again_image, (540, 160))
 
 def reset(cubes, pos, player, winner, human, computer, game_over, easy, medium, hard, victories, draws, defeats):
+    print('reset')
     cubes = []
     pos = []
     player = 1
@@ -72,3 +73,4 @@ def reset(cubes, pos, player, winner, human, computer, game_over, easy, medium, 
     draws = 0
     defeats = 0
     return cubes, pos, player, winner, human, computer, game_over, easy, medium, hard, victories, draws, defeats
+    
